@@ -43,7 +43,6 @@
 - tmux
 - shellcheck
 - nmap
-- dockutil
 
 ### VS Code extensions
 - Python
@@ -72,13 +71,25 @@ Claude
 Finderとゴミ箱はmacOSが管理する特殊なDock項目です。
 `setup.sh` は通常のDock項目を一度削除したあと、上記のアプリを順番に追加します。
 
-また、「最近使ったアプリをDockに表示」をOFFにして、余計なアプリアイコンが自動で増えにくい状態にします。
+「最近使ったアプリをDockに表示」はOFFにします。
+
+Dock編集には `dockutil` を使いますが、これは常設しません。
+
+```text
+setup.sh
+  ↓
+dockutil を一時インストール
+  ↓
+Dockを再構成
+  ↓
+dockutil をアンインストール
+```
+
+もともと端末に `dockutil` が入っていた場合だけは、既存環境を壊さないため削除しません。
 
 macOS 25以前で `Apps.app` が存在しない場合は、可能ならLaunchpadを代わりに追加します。
 
 ## 使い方
-
-このリポジトリを取得して、通常ユーザーのターミナルから以下を実行します。
 
 ```bash
 git clone https://github.com/Taka-cst/mac-setup.git
