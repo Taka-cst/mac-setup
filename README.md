@@ -1,6 +1,6 @@
 # mac-setup
 
-複数のMacに、研究・開発用の基本環境をまとめて導入するためのセットアップ一式です。
+複数のMacに、研究・開発・AIハンズオン用の基本環境をまとめて導入するセットアップ一式です。
 
 ## 入るもの
 
@@ -24,6 +24,12 @@
 - Visual Studio Code
 - Slack
 - OrbStack
+- Notion
+- Zoom
+- Box Drive
+- Adobe Acrobat Reader
+- ChatGPT
+- Claude
 
 ### CLI
 - jq / yq
@@ -37,6 +43,7 @@
 - tmux
 - shellcheck
 - nmap
+- dockutil
 
 ### VS Code extensions
 - Python
@@ -44,11 +51,37 @@
 - Prettier
 - ESLint
 
+## Dock
+
+セットアップ時にDockを整理して、AIハンズオンで使うアプリを見つけやすくします。
+
+macOS 26 Tahoeでは次の順序になります。
+
+```text
+Finder
+Apps
+Safari
+Slack
+Notion
+Zoom
+Visual Studio Code
+ChatGPT
+Claude
+```
+
+Finderとゴミ箱はmacOSが管理する特殊なDock項目です。
+`setup.sh` は通常のDock項目を一度削除したあと、上記のアプリを順番に追加します。
+
+また、「最近使ったアプリをDockに表示」をOFFにして、余計なアプリアイコンが自動で増えにくい状態にします。
+
+macOS 25以前で `Apps.app` が存在しない場合は、可能ならLaunchpadを代わりに追加します。
+
 ## 使い方
 
-このフォルダをMacへコピーして、ターミナルで以下を実行します。
+このリポジトリを取得して、通常ユーザーのターミナルから以下を実行します。
 
 ```bash
+git clone https://github.com/Taka-cst/mac-setup.git
 cd mac-setup
 chmod +x setup.sh check.sh
 ./setup.sh
@@ -81,15 +114,13 @@ git config --global user.email "you@example.com"
 
 各Macに使用するWireGuard設定をインポートしてください。
 
-**秘密鍵や実際のWireGuard設定ファイルを、この共有セットアップ一式へ直接入れないでください。**
+**秘密鍵や実際のWireGuard設定ファイルを、この公開リポジトリへ直接入れないでください。**
 
-### Slack
+### 各GUIアプリ
 
-Slackを起動して各自のアカウントでログインします。
+Slack / Notion / Zoom / ChatGPT / Claude は、必要に応じて各自ログインしてください。
 
-### OrbStack
-
-初回だけOrbStackを起動して初期セットアップを完了してください。
+OrbStackは初回だけ起動して初期セットアップを完了してください。
 
 ## 構成
 
@@ -100,21 +131,3 @@ mac-setup/
 ├── check.sh
 └── README.md
 ```
-
-## 補足
-
-`Brewfile` は「全Macに共通で入れるもの」に限定するのがおすすめです。
-個人しか使わないアプリやCLIを追加し始めると、共通環境が肥大化します。
-
-OrbStackが不要なら、`Brewfile` の次の行を削除またはコメントアウトしてください。
-
-```ruby
-cask "orbstack"
-```
-
-## 追加GUIアプリ
-
-- Zoom
-- Box Drive
-- Adobe Acrobat Reader
-- Notion
