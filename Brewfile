@@ -15,15 +15,6 @@ brew "uv"
 brew "opencode"
 
 # -------------------------
-# WireGuard
-# -------------------------
-# CLI tools: wg / wg-quick
-brew "wireguard-tools"
-
-# Used by setup.sh to install the official WireGuard app from the Mac App Store.
-brew "mas"
-
-# -------------------------
 # Useful CLI tools
 # -------------------------
 brew "jq"
