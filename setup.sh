@@ -27,24 +27,8 @@ fi
 echo "==> Updating Homebrew..."
 brew update
 
-echo "==> Installing packages and applications from Brewfile..."
+echo "==> Installing/updating packages and applications from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
-
-# Official WireGuard GUI app.
-WIREGUARD_APP_ID="1451685025"
-
-if command -v mas >/dev/null 2>&1; then
-  if mas list 2>/dev/null | awk '{print $1}' | grep -qx "$WIREGUARD_APP_ID"; then
-    echo "==> WireGuard app already installed"
-  else
-    echo "==> Installing official WireGuard app from the Mac App Store..."
-    if ! mas install "$WIREGUARD_APP_ID"; then
-      echo "WARNING: WireGuard GUI app could not be installed automatically."
-      echo "         Sign in to the Mac App Store and install 'WireGuard' manually."
-      echo "         WireGuard CLI tools (wg / wg-quick) are already installed."
-    fi
-  fi
-fi
 
 # -------------------------
 # Dock
@@ -137,5 +121,4 @@ echo "  3. Sign in to Zoom"
 echo "  4. Sign in to ChatGPT / Claude as needed"
 echo "  5. Sign in to GitHub: gh auth login"
 echo "  6. Configure Git name/email if needed"
-echo "  7. Import the WireGuard tunnel configuration"
-echo "  8. Open OrbStack once to finish its initial setup"
+echo "  7. Open OrbStack once to finish its initial setup"
