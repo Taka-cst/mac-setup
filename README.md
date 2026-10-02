@@ -2,6 +2,9 @@
 
 複数のMacに、研究・開発・AIハンズオン用の基本環境をまとめて導入するセットアップ一式です。
 
+既に一部のHomebrewパッケージやアプリが入っているMacでも、そのまま `setup.sh` を実行できます。
+不足分は追加され、Homebrew管理対象は通常どおり更新され、Dockは指定した構成に整理されます。
+
 ## 入るもの
 
 ### 開発環境
@@ -13,12 +16,6 @@
 - Node.js
 - `uv`
 - OpenCode
-
-### VPN
-- WireGuard CLI (`wg`, `wg-quick`)
-- WireGuard公式macOSアプリ
-  - App Storeから `mas` を使って自動導入を試みます
-  - Mac App Storeに未ログインの場合は、GUIアプリだけ手動導入が必要です
 
 ### GUI
 - Visual Studio Code
@@ -100,6 +97,9 @@ chmod +x setup.sh check.sh
 
 Homebrewが入っていなければ、公式インストーラから自動で導入します。
 
+既にHomebrewが入っているMacでは、その環境を使って `brew update` と `brew bundle` を実行します。
+`--no-upgrade` は指定していないため、通常のHomebrew Bundleの更新動作を維持しています。
+
 セットアップ確認:
 
 ```bash
@@ -120,12 +120,6 @@ Gitの名前とメールアドレスを設定する場合:
 git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
 ```
-
-### WireGuard
-
-各Macに使用するWireGuard設定をインポートしてください。
-
-**秘密鍵や実際のWireGuard設定ファイルを、この公開リポジトリへ直接入れないでください。**
 
 ### 各GUIアプリ
 
