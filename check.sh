@@ -30,7 +30,6 @@ check_cmd python3 python3 --version
 check_cmd node node --version
 check_cmd uv uv --version
 check_cmd opencode opencode --version
-check_cmd wg wg --version
 check_cmd jq jq --version
 check_cmd rg rg --version
 check_cmd fzf fzf --version
@@ -48,8 +47,7 @@ for app in \
   "/Applications/Claude.app" \
   "/Applications/OrbStack.app" \
   "/Applications/Adobe Acrobat Reader.app" \
-  "/Applications/Box.app" \
-  "/Applications/WireGuard.app"
+  "/Applications/Box.app"
 do
   if [[ -d "$app" ]]; then
     echo "OK      $(basename "$app")"
