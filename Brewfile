@@ -38,6 +38,7 @@ brew "htop"
 brew "tmux"
 brew "shellcheck"
 brew "nmap"
+brew "dockutil"
 
 # -------------------------
 # GUI applications
@@ -49,6 +50,8 @@ cask "notion"
 cask "adobe-acrobat-reader"
 cask "box-drive"
 cask "zoom"
+cask "chatgpt"
+cask "claude"
 
 # -------------------------
 # VS Code extensions
