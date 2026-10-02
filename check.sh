@@ -35,6 +35,7 @@ check_cmd jq jq --version
 check_cmd rg rg --version
 check_cmd fzf fzf --version
 check_cmd nmap nmap --version
+check_cmd dockutil dockutil --version
 
 echo
 echo "=== Applications ==="
@@ -42,7 +43,13 @@ echo "=== Applications ==="
 for app in \
   "/Applications/Visual Studio Code.app" \
   "/Applications/Slack.app" \
+  "/Applications/Notion.app" \
+  "/Applications/zoom.us.app" \
+  "/Applications/ChatGPT.app" \
+  "/Applications/Claude.app" \
   "/Applications/OrbStack.app" \
+  "/Applications/Adobe Acrobat Reader.app" \
+  "/Applications/Box.app" \
   "/Applications/WireGuard.app"
 do
   if [[ -d "$app" ]]; then
@@ -51,3 +58,11 @@ do
     echo "MISSING $(basename "$app")"
   fi
 done
+
+echo
+echo "=== Dock ==="
+if command -v dockutil >/dev/null 2>&1; then
+  dockutil --list
+else
+  echo "dockutil: NOT INSTALLED"
+fi
