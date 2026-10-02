@@ -38,7 +38,6 @@ brew "htop"
 brew "tmux"
 brew "shellcheck"
 brew "nmap"
-brew "dockutil"
 
 # -------------------------
 # GUI applications
