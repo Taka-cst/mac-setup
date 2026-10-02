@@ -10,7 +10,6 @@ if ! command -v brew >/dev/null 2>&1; then
   echo "==> Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  # Homebrew is not always added to PATH in the current shell immediately.
   if [[ -x /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
   elif [[ -x /usr/local/bin/brew ]]; then
@@ -32,8 +31,6 @@ echo "==> Installing packages and applications from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 
 # Official WireGuard GUI app.
-# App Store authentication is required, so failure here should not abort
-# the rest of the machine setup.
 WIREGUARD_APP_ID="1451685025"
 
 if command -v mas >/dev/null 2>&1; then
@@ -52,17 +49,22 @@ fi
 # -------------------------
 # Dock
 # -------------------------
-# Keep the Dock minimal for the AI hands-on session:
-# Finder -> Apps -> Safari -> Slack -> Notion -> Zoom
-# -> Visual Studio Code -> ChatGPT -> Claude
-#
-# Finder and Trash are special Dock items managed by macOS, so dockutil does
-# not need to add them explicitly.
+# dockutil is intentionally temporary:
+# install -> configure Dock -> uninstall.
+
+DOCKUTIL_WAS_PRESENT=false
+
+if command -v dockutil >/dev/null 2>&1; then
+  DOCKUTIL_WAS_PRESENT=true
+else
+  echo "==> Installing dockutil temporarily..."
+  brew install dockutil
+fi
 
 if command -v dockutil >/dev/null 2>&1; then
   echo "==> Configuring Dock..."
 
-  # Hide dynamically suggested/recent apps so the Dock stays predictable.
+  # Keep the Dock predictable for the AI hands-on session.
   defaults write com.apple.dock show-recents -bool false
 
   # Remove ordinary pinned apps/folders. Finder and Trash remain.
@@ -75,14 +77,12 @@ if command -v dockutil >/dev/null 2>&1; then
     if [[ -d "$app_path" ]]; then
       dockutil --add "$app_path" --section apps --position end --no-restart
       echo "    Added: $app_name"
-      return 0
+    else
+      echo "WARNING: Dock item not found: $app_name ($app_path)"
     fi
-
-    echo "WARNING: Dock item not found: $app_name ($app_path)"
-    return 0
   }
 
-  # macOS 26 Tahoe uses Apps.app. On older macOS versions, fall back to Launchpad.
+  # macOS 26 Tahoe uses Apps.app. Older versions may still have Launchpad.
   if [[ -d "/System/Applications/Apps.app" ]]; then
     add_dock_app "/System/Applications/Apps.app" "Apps"
   elif [[ -d "/System/Applications/Launchpad.app" ]]; then
@@ -93,7 +93,6 @@ if command -v dockutil >/dev/null 2>&1; then
     echo "WARNING: Apps/Launchpad launcher was not found."
   fi
 
-  # Safari is stored in different locations depending on macOS version.
   if [[ -d "/Applications/Safari.app" ]]; then
     add_dock_app "/Applications/Safari.app" "Safari"
   elif [[ -d "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" ]]; then
@@ -113,6 +112,13 @@ if command -v dockutil >/dev/null 2>&1; then
   echo "==> Dock configured"
 else
   echo "WARNING: dockutil is not available; Dock setup skipped."
+fi
+
+# Remove dockutil only when this script installed it.
+# If the user already had dockutil beforehand, leave it alone.
+if [[ "$DOCKUTIL_WAS_PRESENT" == false ]] && brew list --formula dockutil >/dev/null 2>&1; then
+  echo "==> Removing temporary dockutil..."
+  brew uninstall dockutil
 fi
 
 echo
