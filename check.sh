@@ -35,7 +35,6 @@ check_cmd jq jq --version
 check_cmd rg rg --version
 check_cmd fzf fzf --version
 check_cmd nmap nmap --version
-check_cmd dockutil dockutil --version
 
 echo
 echo "=== Applications ==="
@@ -60,9 +59,9 @@ do
 done
 
 echo
-echo "=== Dock ==="
+echo "=== Dock helper ==="
 if command -v dockutil >/dev/null 2>&1; then
-  dockutil --list
+  echo "dockutil remains installed (it existed before setup, or cleanup failed)"
 else
-  echo "dockutil: NOT INSTALLED"
+  echo "dockutil: not installed (expected after setup)"
 fi
