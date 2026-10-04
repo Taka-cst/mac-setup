@@ -91,9 +91,10 @@ macOS 25以前で `Apps.app` が存在しない場合は、可能ならLaunchpad
 ```bash
 git clone https://github.com/Taka-cst/mac-setup.git
 cd mac-setup
-chmod +x setup.sh check.sh
 ./setup.sh
 ```
+
+スクリプトの実行権限はGitに記録されているため、clone後に `chmod` する必要はありません。
 
 Homebrewが入っていなければ、公式インストーラから自動で導入します。
 
