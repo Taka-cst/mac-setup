@@ -113,6 +113,21 @@ else
   echo "WARNING: Some Brewfile items are still missing."
 fi
 
+# Copy local Desktop contents, including hidden files and nested folders.
+mkdir -p "$SCRIPT_DIR/toDesktop"
+(
+  shopt -s nullglob dotglob
+  desktop_items=("$SCRIPT_DIR/toDesktop/"*)
+
+  if (( ${#desktop_items[@]} > 0 )); then
+    echo "==> Copying toDesktop contents to Desktop..."
+    mkdir -p "$HOME/Desktop"
+    cp -Rp "$SCRIPT_DIR/toDesktop/." "$HOME/Desktop/"
+  else
+    echo "==> toDesktop is empty; Desktop copy skipped"
+  fi
+)
+
 echo
 echo "Next manual steps:"
 echo "  1. Sign in to Slack"
