@@ -96,6 +96,10 @@ cd mac-setup
 
 スクリプトの実行権限はGitに記録されているため、clone後に `chmod` する必要はありません。
 
+Finderから実行する場合は、`setup.command` をダブルクリックしてください。
+Terminalが開いて `setup.sh` を実行します。終了後は結果を確認してEnterキーを押してください。
+Homebrewのインストールなどでパスワード入力を求められた場合は、開いたTerminalで入力してください。
+
 Homebrewが入っていなければ、公式インストーラから自動で導入します。
 
 既にHomebrewが入っているMacでは、その環境を使って `brew update` と `brew bundle` を実行します。
@@ -142,6 +146,7 @@ OrbStackは初回だけ起動して初期セットアップを完了してくだ
 mac-setup/
 ├── Brewfile
 ├── setup.sh
+├── setup.command
 ├── check.sh
 └── README.md
 ```
